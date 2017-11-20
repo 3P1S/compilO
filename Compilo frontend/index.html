@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> Compilo </title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,500" rel="stylesheet">
+        <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="card-header">
+            <center>Compilo</center>
+        </div>
+        <div class="container">
+            <form>
+                <div class="group">      
+                    <input id="txtEmail" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Email</label>
+                </div>
+                
+                <div class="group">      
+                    <input id="txtPassword" type="password" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Password</label>
+                </div>
+    
+            </form>
+            
+            <button id="btnLogin" class="btn btn-primary">
+                Log in
+            </button>
+            <button id="btnSignup" class="btn btn-outline-secondary">
+               Sign up
+            </button>
+            <button id="btnLogout" class="btn btn-primary invisible">
+                Log out
+            </button>
+
+            <div id="errorMessage"></div>
+        </div>
+        <script src="app.js"></script>
+    </body>
+</html>
