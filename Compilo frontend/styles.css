@@ -8489,4 +8489,12 @@ input:focus ~ .highlight {
 	from { background:#5264AE; }
   to 	{ width:0; background:transparent; }
 }
+
+.btn-logout {
+  display: inline !important;
+}
+
+.upload {
+  display: center;
+}
 /*# sourceMappingURL=bootstrap.css.map */

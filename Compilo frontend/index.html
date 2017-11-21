@@ -10,37 +10,49 @@
     <body>
         <div class="card-header">
             <center>Compilo</center>
+            <span id="personName" class="invisible"></span>
+            <span style="align-content: right; float: right;">
+            <button id="btnLogout" class="btn btn-primary invisible">
+                Log out
+            </button>
+            </span>
         </div>
-        <div class="container">
+        <div id="container" class="container">
             <form>
-                <div class="group">      
+                <div class="group">  
                     <input id="txtEmail" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Email</label>
                 </div>
-                
-                <div class="group">      
+                <div class="group">
                     <input id="txtPassword" type="password" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Password</label>
                 </div>
-    
             </form>
-            
             <button id="btnLogin" class="btn btn-primary">
                 Log in
             </button>
             <button id="btnSignup" class="btn btn-outline-secondary">
                Sign up
             </button>
-            <button id="btnLogout" class="btn btn-primary invisible">
-                Log out
-            </button>
-
             <div id="errorMessage"></div>
         </div>
+        <center>
+        <div id="upload" class="upload invisible">
+                <h1>Dr. Bloom posted a new question</h1>
+                <div style="height: 20px"></div>
+                <span>Upload file for Assignment 1</span>
+                <div style="height: 20px"></div>
+                <form id="codeForm" action="http://127.0.0.1:5000/submit/prashnt" method=post enctype=multipart/form-data>
+                    <input type=file name=file>
+                    <div style="height: 20px"></div>
+                    <button id="uploadBtn" class="btn btn-primary">Upload</button>
+                </form>
+        </div>
+        </center>
         <script src="app.js"></script>
     </body>
 </html>
