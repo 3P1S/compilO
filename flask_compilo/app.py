@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 
 
 UPLOAD_FOLDER = 'uploads'
-ALLOWED_EXTENSIONS = set(['.cpp', 'cc'])
+ALLOWED_EXTENSIONS = set(['cpp', 'cc'])
 COMPILER_PATH = "/usr/bin/g++"
 
 app = Flask("compilO")
@@ -18,9 +18,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def main_page():
-    return 'hello world'
-
-
+    return 'hello world' 
 @app.route("/assign", methods=["POST"])
 def hello():
     if request.method == "POST":
