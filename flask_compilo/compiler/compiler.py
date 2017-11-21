@@ -40,19 +40,19 @@ class Compiler:
                 print("There was a runtime error!")
                 return return_value[1]
 
-    def execute_the_binary(self, object_file):
-        if object_file:
-            execution_command = "./{0}".format(object_file)
-            process = subprocess.Popen([execution_command],
-                                       stdout=subprocess.PIPE,
-                                       stderr=subprocess.PIPE)
-            execution_result = process.communicate()
-            error = execution_result[1]
-            stdOut = execution_result[0]
-            if error:
-                print("There was a runtime error!")
-                return error
-            elif stdOut:
-                print("Success!")
-                print("StdOut: {0}".format(stdOut))
-                return stdOut
+    #  def execute_the_binary(self, object_file):
+        #  if object_file:
+            #  execution_command = "./{0}".format(object_file)
+            #  process = subprocess.Popen([execution_command],
+                                       #  stdout=subprocess.PIPE,
+                                       #  stderr=subprocess.PIPE)
+            #  execution_result = process.communicate()
+            #  error = execution_result[1]
+            #  stdOut = execution_result[0]
+            #  if error:
+                #  print("There was a runtime error!")
+                #  return error
+            #  elif stdOut:
+                #  print("Success!")
+                #  print("StdOut: {0}".format(stdOut))
+                #  return stdOut
