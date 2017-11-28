@@ -36,7 +36,9 @@ def submit_file(username):
             compilation_file = app.config["UPLOAD_FOLDER"]+"/"+filename
             compilation_output = compile_cpp(username, compilation_file)
             print (compilation_output)
-            return make_response(jsonify(result=compilation_output))
+            response = make_response(jsonify(result="uploaded"))
+            response.headers['Access-Control-Allow-Origin'] = '*'
+            return response
         return make_response(jsonify(status="upload failed"))
 
 
@@ -51,7 +53,9 @@ def get_compilation_results():
             for j in range(2, len(i)):
                 if i[j] is not None:
                     response[i[0]] = i[j]
-        return make_response(jsonify(status=response))
+        response_obj = make_response(jsonify(status=response))
+        response_obj.headers['Access-Control-Allow-Origin'] = '*'
+        return response_obj
 
 
 #  get compilation output by name
