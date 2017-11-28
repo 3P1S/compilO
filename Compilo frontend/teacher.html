@@ -42,7 +42,7 @@
                     var found = 0;
                     for (var element in thedata['status'])
                     {
-                        if (element.includes(name) || name==null)
+                        if (element.toLowerCase().includes(name.toLowerCase()) || name==null)
                         {
                         
                             display+="<div class='contour'>";
