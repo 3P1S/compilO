@@ -8489,7 +8489,7 @@ input:focus ~ .highlight {
 	from { background:#5264AE; }
   to 	{ width:0; background:transparent; }
 }
-<<<<<<< HEAD
+
 
 .btn-logout {
   display: inline !important;
@@ -8498,8 +8498,7 @@ input:focus ~ .highlight {
 .upload {
   display: center;
 }
-/*# sourceMappingURL=bootstrap.css.map */
-=======
+
 /*# sourceMappingURL=bootstrap.css.map */
 
 
@@ -8532,4 +8531,7 @@ input:focus ~ .highlight {
 {
   color: #4af727;
 }
->>>>>>> 432aca16ad6652f7189e42d21959fdcf59a18865
+
+.terminal {
+    white-space: pre;
+}

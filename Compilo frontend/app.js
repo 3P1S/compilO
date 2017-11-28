@@ -45,7 +45,7 @@
         const pass = txtPassword.value;
         const auth = firebase.auth();
         const promise3 = auth.signInWithEmailAndPassword(email, pass);
-        promise3.catch(e=>console.log(e));
+        promise3.catch(e=>document.getElementById('errorMessage').innerHTML = e.message);
         if(email.endsWith("@howard.edu"))
         {
             window.location.replace("teacher.html");
@@ -71,6 +71,8 @@
     });
     
     btnLogout.addEventListener('click', e=>{
+        document.getElementById('status').innerHTML = null;
+        document.getElementById('loading').classList.add('invisible');
         firebase.auth().signOut();
         document.getElementById('container').innerHTML= containerHTML;
     });

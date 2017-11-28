@@ -5,6 +5,8 @@
         <title> Compilo </title>
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,500" rel="stylesheet">
         <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+    <script src="http://malsup.github.com/jquery.form.js"></script> 
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
@@ -41,6 +43,11 @@
             <div id="errorMessage"></div>
         </div>
         <center>
+            <span>
+        <img src="loading.gif" id="loading" class="invisible">
+            </span>
+        <span id="status">
+        </span>
         <div id="upload" class="upload invisible">
                 <h1>Dr. Bloom posted a new question</h1>
                 <div style="height: 20px"></div>
@@ -49,10 +56,24 @@
                 <form id="codeForm" method=post enctype=multipart/form-data>
                     <input type=file name=file>
                     <div style="height: 20px"></div>
-                    <button id="uploadBtn" class="btn btn-primary">Upload</button>
+                    <button id="uploadBtn" class="btn btn-primary" onclick="makemodifications()">Upload</button>
                 </form>
         </div>
         </center>
+        <script> 
+            $(document).ready(function() { 
+            $('#codeForm').ajaxForm(function() { 
+                document.getElementById('status').innerHTML = 'Your file has been successfully uploaded';
+                document.getElementById('loading').classList.add('invisible');
+            }); 
+        });
+        </script>
+        <script>
+            function makemodifications(){
+                document.getElementById('upload').classList.add('invisible');
+                document.getElementById('loading').classList.remove('invisible');
+            }
+            </script>
         <script src="app.js"></script>
     </body>
 </html>
