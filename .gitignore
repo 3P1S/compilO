@@ -8,6 +8,7 @@ __pycache__/
 
 *uploads
 *test
+*executable
 *.gz
 .DS_Store
 .DS_Store?
