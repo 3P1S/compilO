@@ -43,10 +43,10 @@
             <div id="errorMessage"></div>
         </div>
         <center>
-            <span>
-        <img src="loading.gif" id="loading" class="invisible">
+            <span id ="loading" style="height: 0;" class="invisible">
+        <img src="loading.gif" style="height: 0;">
             </span>
-        <span id="status">
+        <span id="status" style="height: 0;">
         </span>
         <div id="upload" class="upload invisible">
                 <h1>Dr. Bloom posted a new question</h1>
@@ -71,7 +71,10 @@
         <script>
             function makemodifications(){
                 document.getElementById('upload').classList.add('invisible');
+                
                 document.getElementById('loading').classList.remove('invisible');
+                document.getElementById('loading').style.removeProperty("height"); ;
+                document.getElementById('status').style.removeProperty("height"); ;
             }
             </script>
         <script src="app.js"></script>
