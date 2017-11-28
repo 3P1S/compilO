@@ -53,6 +53,7 @@ def get_compilation_results():
                     response[i[0]] = i[j]
         return make_response(jsonify(status=response))
 
+
 #  get compilation output by name
 @app.route('/compilations/<username>', methods=['GET'])
 def get_compilation_results_by_user(username):
@@ -65,23 +66,24 @@ def get_compilation_results_by_user(username):
                 response[results_db[0]] = results_db[j]
         return make_response(jsonify(status=response))
 
+
 #  get all the name of the students
 @app.route('/getStudents', methods=['GET'])
 def get_all_students():
     db = init_db()
     db_cursor = db.cursor()
-    row = db_cursor.execute('SELECT USER_ID FROM {0}'.format(DB_TABLE)).fetchall()
+    row = db_cursor.execute('SELECT USER_ID FROM {0}'.format(
+        DB_TABLE)).fetchall()
     db.close()
     row = list(set(row))
     response_list = []
     for each in row:
         for element in each:
             response_list.append(element)
-    print (response_list)
     return make_response(jsonify(status=response_list))
 
+
 def compile_cpp(userID, file_name):
-    #  executable_name =
     process = subprocess.Popen([COMPILER_PATH, "-Wall", "-o",
                                "executable", file_name],
                                stdout=subprocess.PIPE,
@@ -90,7 +92,7 @@ def compile_cpp(userID, file_name):
     if compilation_output[1]:
         print("failed to compile")
         write_file_result_to_db(userID, file_name, DB_TABLE,
-                compile_err=compilation_output[1])
+                                compile_err=compilation_output[1])
         return compilation_output[1]
     process = subprocess.Popen(["./executable"], stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
@@ -98,10 +100,10 @@ def compile_cpp(userID, file_name):
     if return_value[1]:
         print("There was a runtime error!")
         write_file_result_to_db(userID, file_name, DB_TABLE,
-                run_time_err=return_value[1])
+                                run_time_err=return_value[1])
         return return_value[1]
     write_file_result_to_db(userID, file_name, DB_TABLE,
-            result=return_value[0])
+                            result=return_value[0])
     return return_value[0]
 
 
@@ -112,9 +114,11 @@ def init_db():
 
 
 def create_table(table, db_cursor):
-    # I guess you can also do "?" for the tabel name, make sure you get rid of {0}.
-    first_half = "CREATE TABLE {0} (USER_ID TEXT NOT NULL, ".format(table) 
-    query = first_half + "file BLOB NOT NULL, compile_error text, run_time_error text, result text)"
+    # I guess you can also do "?" for the tabel name,
+    # make sure you get rid of {0}.
+    first_half = "CREATE TABLE {0} (USER_ID TEXT NOT NULL, ".format(table)
+    second_half = "file BLOB NOT NULL, compile_error text, run_time_error text, result text)"
+    query = first_half + second_half
     try:
         db_cursor.execute(query)
     except sqlite3.OperationalError as error:
@@ -144,9 +148,6 @@ def write_file_result_to_db(user_id, file_name, table, compile_err=None,
                       data)
     db.commit()
     db.close()
-
-#  implement this method if you decide to continue working on it later.
-#  def clear_table():
 
 
 def get_results_by_users(table, user_id):
