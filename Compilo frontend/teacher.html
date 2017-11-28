@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> Compilo </title>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,500" rel="stylesheet">
+        <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="card-header">
+            <center>Compilo</center>
+            <span id="personName" class="invisible"></span>
+            <span style="align-content: right; float: right;">
+            <button id="btnLogout" class="btn btn-primary invisible">
+                Log out
+            </button>
+            </span>
+        </div>
+        <div class="results" id="results"></div>
+            <script>
+                $.getJSON('http://127.0.0.1:5000/compilations', function(data){
+                    console.log('success');
+                    console.log(data);
+                    console.log(data['status']['Bhandari']);
+
+                    var display = '';
+                    for (var element in data['status'])
+                    {
+                        display+='<h1>'+ element +'</h1>';
+                        display+='<p>'+ data['status'][element] +'</p>';
+                    }
+                    
+                    $('.results').append(display);
+                });
+            </script>
+    </body>
+</html>
