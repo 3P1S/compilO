@@ -49,7 +49,7 @@ def get_compilation_results():
     if results_db:
         for i in results_db:
             for j in range(2, len(i)):
-                if i[j] != None:
+                if i[j] is not None:
                     response[i[0]] = i[j]
         return make_response(jsonify(status=response))
 
