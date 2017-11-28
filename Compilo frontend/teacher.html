@@ -18,13 +18,35 @@
             </button>
             </span>
         </div>
+        <input name="searchname" id="searchname" type="text" onkeyup="search()" onkeydown="search()">
         <div class="results" id="results"></div>
             <script>
+                function search()
+                {
+                    var name = document.getElementById('searchname').value;
+                    var display = '';
+                    var found = 0;
+                    for (var element in thedata['status'])
+                    {
+                        if (element.includes(name) || name==null)
+                        {
+                        display+='<h1>'+ element +'</h1>';
+                        display+='<p>'+ thedata['status'][element] +'</p>';
+                        found = 1;
+                        }
+                    }
+                    if (found==0)
+                    {
+                        display+='<h1> No results found </h1>';
+                    }
+                    document.getElementById('results').innerHTML = display;
+                }
+                var thedata;
                 $.getJSON('http://127.0.0.1:5000/compilations', function(data){
                     console.log('success');
                     console.log(data);
                     console.log(data['status']['Bhandari']);
-
+                    thedata = data;
                     var display = '';
                     for (var element in data['status'])
                     {
