@@ -37,9 +37,8 @@
             </button>\
             <div id=\"errorMessage\"></div>"
 
-    // uploadBtn.addEventListener('click', e=>{
-    //     document.getElementById("codeForm");
-    // })
+
+        
 
     btnLogin.addEventListener('click', e => {
         const email = txtEmail.value;
@@ -71,13 +70,16 @@
             console.log(firebaseUser);
             btnLogout.classList.remove('invisible');
             personName.classList.remove('invisible');
-            var email = txtEmail.value;
+            var email = firebaseUser.email;
             email = email.replace('@bison.howard.edu', '');
             email = email.replace('.', ' ');
             var userName = namify(email);
             document.getElementById('personName').innerHTML = userName;
             document.getElementById('container').innerHTML = null;
             document.getElementById('upload').classList.remove('invisible');
+            var baseURL = "http://127.0.0.1:5000/submit/"
+            baseURL += userName.split(" ")[0];
+            document.getElementById('codeForm').action = baseURL;
         }
         else {
             console.log(containerHTML);
