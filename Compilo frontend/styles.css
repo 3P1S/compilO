@@ -8489,6 +8489,7 @@ input:focus ~ .highlight {
 	from { background:#5264AE; }
   to 	{ width:0; background:transparent; }
 }
+<<<<<<< HEAD
 
 .btn-logout {
   display: inline !important;
@@ -8498,3 +8499,37 @@ input:focus ~ .highlight {
   display: center;
 }
 /*# sourceMappingURL=bootstrap.css.map */
+=======
+/*# sourceMappingURL=bootstrap.css.map */
+
+
+/*RESULTS*/
+.results
+{
+  align-content: center;
+  margin: 0 10vw;
+}
+
+.contour
+{
+  margin: 0 2.5vw;
+  background-color: #000000;
+  align-content: center;
+}
+
+.clear
+{
+  background-color: #fff;
+  height: 2vw;
+}
+
+.evil
+{
+  background-color: #000000 !important;
+}
+
+.evil center
+{
+  color: #4af727;
+}
+>>>>>>> 432aca16ad6652f7189e42d21959fdcf59a18865
