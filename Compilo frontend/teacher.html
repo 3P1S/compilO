@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <div class="card-header">
+        <div class="card-header evil">
             <center>Compilo</center>
             <span id="personName" class="invisible"></span>
             <span style="align-content: right; float: right;">
@@ -18,7 +18,16 @@
             </button>
             </span>
         </div>
-        <input name="searchname" id="searchname" type="text" onkeyup="search()" onkeydown="search()">
+        <div id="container" class="container">
+                <form>
+                    <div class="group">  
+                            <input name="searchname" id="searchname" type="text" placeholder="Search by Name e.g. John Smith" onkeyup="search()" onkeydown="search()">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Search</label>
+                    </div>
+                </form>
+        </div>
         <div class="results" id="results"></div>
             <script>
                 function search()
@@ -30,9 +39,12 @@
                     {
                         if (element.includes(name) || name==null)
                         {
-                        display+='<h1>'+ element +'</h1>';
-                        display+='<p>'+ thedata['status'][element] +'</p>';
-                        found = 1;
+                        
+                            display+="<div class='contour'>";
+                            display+='<h1 style="padding:2.5vw 7.5vw; color: #4af727;">'+ element +'</h1>';
+                            display+='<div style="margin-left:7.5vw;margin-right:7.5vw;height:15vw;width:60vw;border:1px solid #4af727;font:16px/26px Georgia, Garamond, Serif;overflow:auto; color: #4af727;">'+ thedata['status'][element] +'</div>';
+                            display+="<div style='height:2.5vw;'></div></div>><div class='clear'></div>";
+                            found = 1;   
                         }
                     }
                     if (found==0)
@@ -50,8 +62,10 @@
                     var display = '';
                     for (var element in data['status'])
                     {
-                        display+='<h1>'+ element +'</h1>';
-                        display+='<p>'+ data['status'][element] +'</p>';
+                        display+="<div class='contour'>";
+                        display+='<h1 style="padding:2.5vw 7.5vw; color: #4af727;">'+ element +'</h1>';
+                        display+='<div style="margin-left:7.5vw;margin-right:7.5vw;height:15vw;width:60vw;border:1px solid #4af727;font:16px/26px Georgia, Garamond, Serif;overflow:auto; color: #4af727;">'+ thedata['status'][element] +'</div>';
+                        display+="<div style='height:2.5vw;'></div></div>><div class='clear'></div>";
                     }
                     
                     $('.results').append(display);

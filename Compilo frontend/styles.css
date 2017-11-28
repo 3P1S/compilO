@@ -8490,3 +8490,34 @@ input:focus ~ .highlight {
   to 	{ width:0; background:transparent; }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+
+/*RESULTS*/
+.results
+{
+  align-content: center;
+  margin: 0 10vw;
+}
+
+.contour
+{
+  margin: 0 2.5vw;
+  background-color: #000000;
+  align-content: center;
+}
+
+.clear
+{
+  background-color: #fff;
+  height: 2vw;
+}
+
+.evil
+{
+  background-color: #000000 !important;
+}
+
+.evil center
+{
+  color: #4af727;
+}
