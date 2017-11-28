@@ -1,6 +1,5 @@
 import os
 import subprocess
-#  import tarfile
 import sqlite3
 from flask import Flask, request, redirect, jsonify, make_response
 from werkzeug.utils import secure_filename
@@ -14,16 +13,6 @@ DB_TABLE = "table1"
 app = Flask("compilO")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 #  Use this to limit the upload size
-#  app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
-
-
-@app.route('/')
-def main_page():
-    return 'hello world' 
-@app.route("/assign", methods=["POST"])
-def hello():
-    if request.method == "POST":
-        return request.form['name']
 
 
 def allowed_file(filename):
@@ -51,6 +40,7 @@ def submit_file(username):
         return make_response(jsonify(status="upload failed"))
 
 
+#  get all the compilation output
 @app.route('/compilations', methods=['GET'])
 def get_compilation_results():
     results_db = get_all_results(DB_TABLE)
@@ -63,7 +53,7 @@ def get_compilation_results():
                     response[i[0]] = i[j]
         return make_response(jsonify(status=response))
 
-
+#  get compilation output by name
 @app.route('/compilations/<username>', methods=['GET'])
 def get_compilation_results_by_user(username):
     results_db = get_results_by_users(DB_TABLE, username)
@@ -71,10 +61,24 @@ def get_compilation_results_by_user(username):
     if results_db:
         response = {}
         for j in range(2, len(results_db)):
-            if results_db[j] != None:
+            if results_db[j] is not None:
                 response[results_db[0]] = results_db[j]
         return make_response(jsonify(status=response))
 
+#  get all the name of the students
+@app.route('/getStudents', methods=['GET'])
+def get_all_students():
+    db = init_db()
+    db_cursor = db.cursor()
+    row = db_cursor.execute('SELECT USER_ID FROM {0}'.format(DB_TABLE)).fetchall()
+    db.close()
+    row = list(set(row))
+    response_list = []
+    for each in row:
+        for element in each:
+            response_list.append(element)
+    print (response_list)
+    return make_response(jsonify(status=response_list))
 
 def compile_cpp(userID, file_name):
     #  executable_name =
@@ -85,7 +89,7 @@ def compile_cpp(userID, file_name):
     compilation_output = process.communicate()
     if compilation_output[1]:
         print("failed to compile")
-        write_file_result_to_db(userID, compilation_file, DB_TABLE,
+        write_file_result_to_db(userID, file_name, DB_TABLE,
                 compile_err=compilation_output[1])
         return compilation_output[1]
     process = subprocess.Popen(["./executable"], stdout=subprocess.PIPE,
@@ -93,10 +97,10 @@ def compile_cpp(userID, file_name):
     return_value = process.communicate()
     if return_value[1]:
         print("There was a runtime error!")
-        write_file_result_to_db(userID, compilation_file, DB_TABLE,
+        write_file_result_to_db(userID, file_name, DB_TABLE,
                 run_time_err=return_value[1])
         return return_value[1]
-    write_file_result_to_db(userID, compilation_file, DB_TABLE,
+    write_file_result_to_db(userID, file_name, DB_TABLE,
             result=return_value[0])
     return return_value[0]
 
@@ -108,7 +112,6 @@ def init_db():
 
 
 def create_table(table, db_cursor):
-    # TODO: Fix this shit, it's too long.
     # I guess you can also do "?" for the tabel name, make sure you get rid of {0}.
     first_half = "CREATE TABLE {0} (USER_ID TEXT NOT NULL, ".format(table) 
     query = first_half + "file BLOB NOT NULL, compile_error text, run_time_error text, result text)"
@@ -122,12 +125,12 @@ def create_table(table, db_cursor):
 
 
 #  make sure to delete the file after adding it to db
-def write_file_result_to_db(user_id, file, table, compile_err=None,
+def write_file_result_to_db(user_id, file_name, table, compile_err=None,
                             run_time_err=None, result=None):
     db = init_db()
     db_cursor = db.cursor()
     create_table(table, db_cursor)
-    with open(file, "rb") as f:
+    with open(file_name, "rb") as f:
         ablob = f.read()
     if compile_err:
         data = (user_id, buffer(ablob), compile_err, None, None)
@@ -145,6 +148,7 @@ def write_file_result_to_db(user_id, file, table, compile_err=None,
 #  implement this method if you decide to continue working on it later.
 #  def clear_table():
 
+
 def get_results_by_users(table, user_id):
     db = init_db()
     db_cursor = db.cursor()
@@ -154,11 +158,10 @@ def get_results_by_users(table, user_id):
                 "SELECT * FROM {0} WHERE USER_ID=?".format(table),
                 data).fetchone()
         db.close()
-        #  with open("./uploads/{0}-{1}.cc".format(user_id, row[1])) as file_from_db:
-            #  file_from_db.write(row[2])
         return row
     db.close()
     return "No user_id"
+
 
 def get_all_results(table):
     db = init_db()
@@ -166,8 +169,3 @@ def get_all_results(table):
     row = db_cursor.execute("SELECT * FROM {0}".format(table)).fetchall()
     db.close()
     return row
-
-
-
-
-
