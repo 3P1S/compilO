@@ -77,6 +77,11 @@
         document.getElementById('container').innerHTML= containerHTML;
     });
 
+    teacherLogout.addEventListener('click', e=>{
+        firebase.auth().signOut();
+        window.location.href = "index.html";
+    });
+
     firebase.auth().onAuthStateChanged(firebaseUser => {
         if(firebaseUser) {
             console.log(firebaseUser);
