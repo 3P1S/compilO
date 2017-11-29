@@ -1,3 +1,4 @@
+<!-- The view for the teachers/professors -->
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,6 +10,7 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
+        <!--Header-->
         <div class="card-header evil">
             <center>Compilo</center>
             <span id="personName" class="invisible"></span>
@@ -23,6 +25,7 @@
             </button>
             </span>
         </div>
+        <!--Search Bar-->
         <div id="container" class="container">
                 <form>
                     <div class="group">  
@@ -33,46 +36,57 @@
                     </div>
                 </form>
         </div>
+        <!--Display of the results-->
         <div class="results" id="results"></div>
             <script>
+                //function called for searching a name in the results
                 function search()
                 {
                     var name = document.getElementById('searchname').value;
                     var display = '';
                     var found = 0;
+                    //traverse through the already received global thedata which contains the result data
                     for (var element in thedata['status'])
                     {
+                        //display only the data that matches the provided name
                         if (element.toLowerCase().includes(name.toLowerCase()) || name==null)
                         {
                         
                             display+="<div class='contour'>";
                             display+='<h1 style="padding:2.5vw 7.5vw; color: #4af727;">'+ element +'</h1>';
                             display+='<div style="margin-left:7.5vw;margin-right:7.5vw;height:15vw;width:60vw;border:1px solid #4af727;font:16px/26px Georgia, Garamond, Serif;overflow:auto; color: #4af727;">'+ thedata['status'][element] +'</div>';
-                            display+="<div style='height:2.5vw;'></div></div>><div class='clear'></div>";
+                            display+="<div style='height:2.5vw;'></div></div><div class='clear'></div>";
                             found = 1;   
                         }
                     }
+                    //display no results if no results found
                     if (found==0)
                     {
                         display+='<h1> No results found </h1>';
                     }
+                    //append the display to the html
                     document.getElementById('results').innerHTML = display;
                 }
+                //global variable to store the json data
                 var thedata;
+                //get json data from the host
                 $.getJSON('http://127.0.0.1:5000/compilations', function(data){
+                    //test
                     console.log('success');
                     console.log(data);
                     console.log(data['status']['Bhandari']);
+                    //assign to the global variable
                     thedata = data;
                     var display = '';
+                    //display theresults
                     for (var element in data['status'])
                     {
                         display+="<div class='contour'>";
                         display+='<h1 style="padding:2.5vw 7.5vw; color: #4af727;">'+ element +'</h1>';
                         display+='<div style="margin-left:7.5vw;margin-right:7.5vw;height:15vw;width:60vw;border:1px solid #4af727;font:16px/26px Georgia, Garamond, Serif;overflow:auto; color: #4af727;" class="terminal">'+ thedata['status'][element] +'</div>';
-                        display+="<div style='height:2.5vw;'></div></div>><div class='clear'></div>";
+                        display+="<div style='height:2.5vw;'></div></div><div class='clear'></div>";
                     }
-                    
+                    //append to the results
                     $('.results').append(display);
                 });
             </script>
